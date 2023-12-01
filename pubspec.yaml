@@ -1,6 +1,6 @@
 name: resultify
 description: A Dart package for result-oriented programming, providing Result<R, E> type with convenient methods for streamlined error handling.
-version: 0.1.1
+version: 0.1.2
 repository: https://github.com/intales/resultify
 
 environment:
