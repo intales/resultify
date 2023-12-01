@@ -23,9 +23,9 @@ class Result<R, E> {
   E? getErrorOrDefault({E? defaultValue}) => isError ? _error! : defaultValue;
 
   /// Matches the result, invoking the appropriate callback based on success or error.
-  void match({
-    required void Function(R result) onSuccess,
-    required void Function(E error) onError,
+  T match<T>({
+    required T Function(R result) onSuccess,
+    required T Function(E error) onError,
   }) =>
       //ignore: null_check_on_nullable_type_parameter
       isSuccess ? onSuccess(_result!) : onError(_error!);
