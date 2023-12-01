@@ -24,7 +24,7 @@ The `Result<R, E>` type encapsulates either a successful result (`R`) or an erro
 ```dart
 Result<int, String> divide(int a, int b) {
     if (b == 0) return Result.error("Cannot divide by zero");
-    return a ~/ b;
+    return Result.success(a ~/ b);
 }
 ```
 
