@@ -2,7 +2,10 @@ import 'package:resultify/resultify.dart';
 
 void main() {
   standardUsage();
+  print("\n");
   functionWrapping();
+  print("\n");
+  usingContext();
 }
 
 /// Standard usage of Result.
@@ -48,4 +51,17 @@ void functionWrapping() {
   final errorResult = Result.wrap(errorFunction, errorMapper: (e) => e);
   // Prints 'Error!'
   print(errorResult.getErrorOrDefault());
+}
+
+/// Using context.
+///
+/// You can also give context to errors and results. This should help you debugging.
+/// This could be helpful with generic operations and make the flow of logic much cleaner.
+void usingContext() {
+  Result<String, String> cook(String something) {
+    return Result.success("I cooked $something");
+  }
+
+  final result = cook("Pasta").withContext("Trying to cook pasta");
+  print(result);
 }
