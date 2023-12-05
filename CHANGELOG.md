@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Added `withContext` method, it is now possible to add context to results.
+
 ## 0.1.2
 
 - Fixed `match` method, it is now possible to transform the result into another type.
