@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Added wrapping function for Futures.
+
 ## 0.2.0
 
 - Added `withContext` method, it is now possible to add context to results.
