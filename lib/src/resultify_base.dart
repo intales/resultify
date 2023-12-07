@@ -84,4 +84,20 @@ class Result<R, E> {
       return Result.error(error, context: context);
     }
   }
+
+  /// Executes the provided Future [function] and wraps the result in a [Future<Result>] type,
+  /// handling exceptions and mapping them to the specified error type with [errorMapper].
+  static Future<Result<R, E>> wrapFuture<R, E>(
+    Future<R> Function() function, {
+    required E Function(Object) errorMapper,
+    String? context,
+  }) async {
+    try {
+      final result = await function();
+      return Result.success(result, context: context);
+    } catch (e) {
+      final error = errorMapper(e);
+      return Result.error(error, context: context);
+    }
+  }
 }

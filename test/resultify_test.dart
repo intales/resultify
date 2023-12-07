@@ -32,5 +32,34 @@ void main() {
       expect(result.isSuccess, false);
       expect(result.getErrorOrDefault(), "Got Error: Throwing error");
     });
+
+    test(
+        'Given an async Function should return a successful Future<Result<R,E>',
+        () async {
+      // Arrange
+      asyncFunction() => Future.delayed(const Duration(milliseconds: 50))
+          .then((_) => "Here is a Future!");
+
+      // Act
+      final result =
+          await Result.wrapFuture(asyncFunction, errorMapper: (_) => null);
+
+      // Assert
+      expect(result.isSuccess, true);
+    });
+
+    test('Given an async Function should return an error Future<Result<R,E>',
+        () async {
+      // Arrange
+      asyncFunction() => Future.delayed(const Duration(milliseconds: 50))
+          .then((_) => throw "Here is an error :(");
+
+      // Act
+      final result =
+          await Result.wrapFuture(asyncFunction, errorMapper: (err) => err);
+
+      // Assert
+      expect(result.isError, true);
+    });
   });
 }
