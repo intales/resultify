@@ -10,7 +10,7 @@ void main() {
       function() => "Successful";
 
       // Act
-      final result = Result.wrap(function, errorMapper: (e) => null);
+      final result = Resultify.wrap(function, errorMapper: (e) => null);
 
       // Assert
       expect(result.isSuccess, true);
@@ -25,7 +25,8 @@ void main() {
       function() => throw "Throwing error";
 
       // Act
-      final result = Result.wrap(function, errorMapper: (e) => "Got Error: $e");
+      final result =
+          Resultify.wrap(function, errorMapper: (e) => "Got Error: $e");
 
       // Assert
       expect(result.isError, true);
@@ -42,7 +43,7 @@ void main() {
 
       // Act
       final result =
-          await Result.wrapFuture(asyncFunction, errorMapper: (_) => null);
+          await Resultify.wrapFuture(asyncFunction, errorMapper: (_) => null);
 
       // Assert
       expect(result.isSuccess, true);
@@ -56,7 +57,7 @@ void main() {
 
       // Act
       final result =
-          await Result.wrapFuture(asyncFunction, errorMapper: (err) => err);
+          await Resultify.wrapFuture(asyncFunction, errorMapper: (err) => err);
 
       // Assert
       expect(result.isError, true);

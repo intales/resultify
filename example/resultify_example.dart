@@ -5,7 +5,7 @@ void main() {
   print("\n");
   functionWrapping();
   print("\n");
-  usingContext();
+  goStyle();
 }
 
 /// Standard usage of Result.
@@ -14,8 +14,8 @@ void main() {
 void standardUsage() {
   // Declare a function that returns a Result.
   Result<int, String> divide(int a, int b) {
-    if (b == 0) return Result.error("Cannot divide by zero");
-    return Result.success(a ~/ b);
+    if (b == 0) return Resultify.error("Cannot divide by zero");
+    return Resultify.success(a ~/ b);
   }
 
   final result = divide(5, 3);
@@ -44,24 +44,30 @@ void functionWrapping() {
   String successFunction() => "Success!";
   String errorFunction() => throw "Error!";
 
-  final successResult = Result.wrap(successFunction, errorMapper: (e) => null);
+  final successResult =
+      Resultify.wrap(successFunction, errorMapper: (e) => null);
   // Prints 'Success!'
   print(successResult.getResultOrDefault());
 
-  final errorResult = Result.wrap(errorFunction, errorMapper: (e) => e);
+  final errorResult = Resultify.wrap(errorFunction, errorMapper: (e) => e);
   // Prints 'Error!'
   print(errorResult.getErrorOrDefault());
 }
 
-/// Using context.
-///
-/// You can also give context to errors and results. This should help you debugging.
-/// This could be helpful with generic operations and make the flow of logic much cleaner.
-void usingContext() {
-  Result<String, String> cook(String something) {
-    return Result.success("I cooked $something");
+/// You can also use Resultify to have a "golang experience" wich is really nice.
+void goStyle() {
+  Result<String, String> foo() => Resultify.success("foo");
+
+  final (result, err) = foo();
+
+  if (err != null) {
+    print("Ooops... something went wrong: $err");
   }
 
-  final result = cook("Pasta").withContext("Trying to cook pasta");
-  print(result);
+  print("Yay! $result");
+
+  // You can also return values without the `success` or `error` constructors.
+  Result<String, String> fooo() => (null, "Something went wrong :(");
+
+  print(fooo());
 }
