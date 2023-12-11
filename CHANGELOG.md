@@ -1,3 +1,9 @@
+## 0.4.0
+
+- Refactored `Result` to have a cleaner codebase.
+- `Result` is now a typedef to a tuple.
+- Removed the context feature, as it wasn't that helpful.
+
 ## 0.3.0
 
 - Added wrapping function for Futures.
